@@ -1,0 +1,13 @@
+import random
+
+def encrypt(x, k):
+    return [ord(x[i]) ^ k[i] for i in range(len(x))]
+
+def decrypt(e, k):
+    return ''.join(chr(e[i] ^ k[i]) for i in range(len(e)))
+
+x = "ABC"
+k = [random.randint(0, 255) for _ in range(len(x))]  # one key byte per character
+e = encrypt(x, k)
+d = decrypt(e, k)
+print(e, d)
