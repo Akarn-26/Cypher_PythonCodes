@@ -1,0 +1,14 @@
+def encrypt(x,k):
+    s=""
+    for i in x:
+        s+=chr(((ord(i)-65)+k)%26+65)
+    return s
+def decrypt(x,k):
+    s=""
+    for i in x:
+        s+=chr(((ord(i)-65)-k)%26+65)
+    return s
+x="HELLO"
+k=3
+e=(encrypt(x,k))
+print(e,decrypt(e,k))
