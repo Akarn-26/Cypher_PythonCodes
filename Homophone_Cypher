@@ -1,0 +1,20 @@
+import random
+def encrypt(x,k):
+    s=""
+    for i in x:
+        s+=str(random.choice(k[i]))
+    return s
+    
+def decrypt(x,k):
+    r=""
+    for i in range(0,len(x),2):
+        t=int(x[i:i+2])
+        for j in k:
+            if t in k[j]:
+                r+=str(j)
+    return r
+x="EEE"
+k={}
+k['E']=[32,12,99,12,10]
+e=(encrypt(x,k))
+print(e,decrypt(e,k))
