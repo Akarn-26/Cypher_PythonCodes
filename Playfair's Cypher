@@ -1,0 +1,62 @@
+def encrypt(T,hashmap):
+    i=0
+    ans=""
+    while i<len(T):                              # CHANGED: <= to 
+        if 65<=ord(T[i])<=90:
+            x=""
+            if i+1<=len(T)-1 and 65<=ord(T[i+1])<=90:
+                x=T[i]+T[i+1]
+                i+=2                              # ADDED: advance by 2 (pair consumed)
+            else:
+                x=T[i]+'X'
+                i+=1                              # ADDED: advance by 1 (single letter + pad)
+            r1,c1=hashmap[x[0]]                   # CHANGED: unpack row AND column
+            r2,c2=hashmap[x[1]]
+            if r1==r2:
+                ans+=key[r1][(c1+1)%5]+key[r2][(c2+1)%5]   # FIXED: same-row rule
+            elif c1==c2:
+                ans+=key[(r1+1)%5][c1]+key[(r2+1)%5][c2]   # ADDED: same-column rule
+            else:
+                ans+=key[r1][c2]+key[r2][c1]               # ADDED: rectangle rule
+        else:
+            i+=1
+    return ans # ADDED: was missing entirely
+def decrypt(T,hashmap):
+    i=0
+    ans=""
+    while i<len(T):                              # CHANGED: <= to 
+        if 65<=ord(T[i])<=90:
+            x=""
+            if i+1<=len(T)-1 and 65<=ord(T[i+1])<=90:
+                x=T[i]+T[i+1]
+                i+=2                              # ADDED: advance by 2 (pair consumed)
+            else:
+                x=T[i]+'X'
+                i+=1                              # ADDED: advance by 1 (single letter + pad)
+            r1,c1=hashmap[x[0]]                   # CHANGED: unpack row AND column
+            r2,c2=hashmap[x[1]]
+            if r1==r2:
+                ans+=key[r1][(c1-1)%5]+key[r2][(c2-1)%5]   # ADDED: same-row, shift LEFT
+            elif c1==c2:
+                ans+=key[(r1-1)%5][c1]+key[(r2-1)%5][c2]   # ADDED: same-column, shift UP
+            else:
+                ans+=key[r1][c2]+key[r2][c1]               # ADDED: rectangle rule
+        else:
+            i+=1
+    return ans
+key=[['M', 'O', 'N', 'A', 'R'],
+    ['C', 'H', 'Y', 'B', 'D'],
+    ['E', 'F', 'G', 'I', 'K'],
+    ['L', 'P', 'Q', 'S', 'T'],
+    ['U', 'V', 'W', 'X', 'Z']]
+hashmap={}
+for i in range(len(key)):
+    for j in range(len(key[0])):
+        if key[i][j]=='I':
+            hashmap['J']=(i,j)
+        hashmap[key[i][j]]=(i,j)
+
+T="MOVE FORWARD"
+print(encrypt(T,hashmap))
+print(decrypt(encrypt(T,hashmap),hashmap))
+
