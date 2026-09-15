@@ -1,0 +1,30 @@
+import random
+def encryption(text,hashmap):
+    t=""
+    for i in text:
+        if i in hashmap:
+            t+=hashmap[i]
+        else:
+            t+=i
+    return t
+def decryption(text,hashmap):
+    t=""
+    for i in text:
+        if i in hashmap:
+            t+=hashmap[i]
+        else:
+            t+=i
+    return t
+key=[i for i in range(26)]
+x='Hello from the other side'
+x=x.upper()
+random.shuffle(key)
+print(key)
+hashmap={}
+hashmap2={}
+for i in range(26):
+    hashmap[chr(65+i)]=chr(65+key[i])
+    hashmap2[chr(65+key[i])]=chr(65+i)
+print(hashmap)
+print(encryption(x,hashmap))
+print(decryption(encryption(x,hashmap),hashmap2))
