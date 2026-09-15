@@ -1,0 +1,18 @@
+x="HELLO"
+k="KEY"
+a=""
+x=x.upper()
+k=k.upper()
+for i in range(len(x)):
+    if i<=len(k)-1:
+        a+=chr((ord(x[i])+ord(k[i])-130)%26+65)
+    else:
+        a+=chr((ord(x[i])+ord(x[i-len(k)])-130)%26+65)
+print(a)
+d=""
+for i in range(len(x)):
+    if i<=len(k)-1:
+        d+=chr((ord(a[i])-ord(k[i]))%26+65)
+    else:
+        d+=chr((ord(a[i])-ord(d[i-len(k)]))%26+65)
+print(d)
