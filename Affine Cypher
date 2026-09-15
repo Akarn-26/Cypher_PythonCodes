@@ -1,0 +1,21 @@
+import random
+from math import gcd
+def a_inv(a):
+    for i in range(1,26):
+        if i*a%26==1:
+            return i
+    return None
+b=(random.randint(0,25))
+a=3 #since gcd(3,26) =1
+x="Hello"
+x=x.upper()
+t=""
+for i in x:
+    asc=ord(i)-65
+    t+=chr((asc*a+b)%26+65)
+print(t)
+dec=""
+for i in t:
+    asc=ord(i)-65
+    dec+=chr(a_inv(a)*(asc-b)%26+65)
+print(dec)
